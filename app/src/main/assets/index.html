@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+	<title>KKKCam App</title>
+	<link rel="stylesheet" type="text/css" href="elements/styles/new-style.css">
+	<link rel="stylesheet" type="text/css" href="elements/styles/animation.css">
+	<meta http-equiv='cache-control' content='no-cache'>
+	<meta http-equiv='expires' content='0'>
+	<meta http-equiv='pragma' content='no-cache'>
+	<script type="text/javascript">
+		let app = {}
+		app.fs = window.localStorage;
+		try {
+			if (typeof app.fs.cams == "undefined") {
+				app.fs.cams = '[]'
+			}
+		} catch {
+
+			app.fs.cams = '[]'
+
+		}
+
+
+		let buttonEnabled = {
+			"btnConnectedWifi":true
+		}
+
+	</script>
+</head>
+<body>
+
+	<div class="app-info screen-popup">
+		<div class="title">Информация</div>
+
+		<div class="close apple-symbol" onclick="
+
+			dqs('.screen.app-home').onclick = null
+
+			screen_animation_up_close(dqs('.app-home.screen'), dqs('.app-info.screen-popup'))
+
+		">􀅾</div>
+
+		<div class="message">
+			version: 1.0 | build 439
+			<br><br>
+			Данное приложение было разработано для проекта KrendelCam.<br>
+			Здесь реализовано простое подключение и настройка камеры.
+			<br><br>
+			Разработчик приложения и проекта: Самцов Никита (kkk_ennrl)<br>
+			Руководитель проекта: Бакштай Оксана Павловна<br><br>
+			Страница проекта:<br> <a href="#" onclick='document.location.href = "https://kkk-ennrl.ml/krendel_cam"'>https://kkk-ennrl.ml/krendel_cam</a>
+		</div>
+
+	</div>
+
+	<div class="app-home screen">
+		
+		<div class="title" onclick="
+
+		screen_animation_up(dqs('.app-info.screen-popup'), dqs('.app-home.screen'))
+
+		setTimeout(function(){
+
+			app.screens.home.onclick = function(){
+
+				app.screens.home.onclick = null
+
+				screen_animation_up_close(dqs('.app-home.screen'), dqs('.app-info.screen-popup'))
+
+			}
+
+		}, 350)
+
+		">KKKCam</div>
+
+		
+		<div app-type='standalone'>
+			
+			<div class="not-devices" style="display: none;">
+				<span class="nd-title">Привет!<img src="elements/emoji/hi.png" width="24"></span>
+				<span class="nd-message">У вас нет добавленных устройств...<br>Не хотите добавить?</span>
+				<span class="apple-symbol nd-add sf-button">􀁌</span>
+			</div>
+
+
+		</div>
+
+	<div class="camera_view">
+
+		<div class="close apple-symbol">􀅾</div>
+
+	</div>
+
+
+
+	</div>
+
+	<div class="screen-popup app-add-device">
+		
+		<div class='mini-screen-1'>
+			
+			<div class="title">Добавить устройство</div>
+
+			<div class="message">Для начала подключитесь к доступной точке доступа Wifi под названием "KKKCam Setup"<br>Далее нажмите на кнопку продолжить и дождитесь ответа камеры</div>
+
+			<div class="button-bottom" onclick="
+
+				let n = new XMLHttpRequest;
+				n.timeout = 5e3;
+				n.open('GET', 'http://192.168.4.1/scan', true);
+				n.onload = function() {
+
+					mini_screen_redirect(dqs('.screen-popup.app-add-device .mini-screen-1'), dqs('.screen-popup.app-add-device .mini-screen-2'));
+
+					let db = JSON.parse(n.response).networks
+
+					let html = ''
+
+					for (var i = 0; i < db.length; i++) {
+						html += '<div class=\'network\'><div class=\'icon signal-100\'></div><div class=\'name\'>' + db[i].name + '</div>'
+						html += '<div class=\'locked\'></div><div class=\'connect\' onclick=\'connect_to_wifi(' + JSON.stringify(db[i]) +')\'><span class=\'apple-symbol\'>􀅼</span></div></div>'
+					}
+					dqs('.mini-screen-2 .wifi-networks').innerHTML = html
+
+				}
+				n.onerror = function(){
+
+				}
+				n.send()
+				
+
+
+			">Продолжить <span class="apple-symbol">􀄫</span></div>
+	
+
+		</div>
+
+		<div class="mini-screen-2">
+			
+			<div class="title">Подключение к сети</div>
+
+			<div class="message">Выберите wifi сеть для подключения к ней</div>
+
+			<div class="wifi-networks">
+				
+				<div class="network">
+					<div class="icon signal-100"><span class="apple-symbol">􀙇</span></div>
+					<div class="name">Wifi1</div>
+					<div class="locked"></div>
+					<div class="connect"><span class="apple-symbol">􀅼</span></div>
+				</div>
+
+				<div class="network">
+					<div class="icon signal-100"><span class="apple-symbol">􀙇</span></div>
+					<div class="name">Wifi1</div>
+					<div class="locked"></div>
+					<div class="connect"><span class="apple-symbol">􀅼</span></div>
+				</div>
+
+				<div class="network">
+					<div class="icon signal-100"><span class="apple-symbol">􀙇</span></div>
+					<div class="name">Wifi1</div>
+					<div class="locked"></div>
+					<div class="connect"><span class="apple-symbol">􀅼</span></div>
+				</div>
+
+			</div>
+
+
+		</div>
+
+		<div class="mini-screen-3">
+			
+			<div class="title">Подключение к {wifi_name}</div>
+
+			<div class="message">Введите пароль от wifi сети</div>
+
+			<input type="password" class="password-in" placeholder="Введите пароль от сети">
+			
+			<div class="button-bottom" onclick="
+
+			let l = new XMLHttpRequest;
+			l.timeout = 5e3;
+			l.open('GET', 'http://192.168.4.1/connect?net={wifi_name_full}&pass=' + dqs('.mini-screen-3 .password-in').value, true);
+			l.onload = function(){
+
+				console.log(l.response)
+
+				dqs('.mini-screen-4').innerHTML = dqs('.mini-screen-4').innerHTML.replaceAll('{ip}', JSON.parse(l.response).ip)
+
+				mini_screen_redirect(dqs('.screen-popup.app-add-device .mini-screen-3'), dqs('.screen-popup.app-add-device .mini-screen-4'));
+
+			}
+			l.send()
+
+			">Подключить <span class="apple-symbol">􀄫</span></div>
+
+		</div>
+
+		<div class="mini-screen-4">
+			
+			<div class="title">Почти готово!</div>
+
+			<div class="message">Данные на камеру отправлены!<br>Теперь подключитесь к сети к которой подключили камеру и мы закончим настройку устройства!
+			<br><br>
+			Обратите внимание: если камера не может подключиться к сети в течении 30 секунд, то она сбрасывает настройку и включается заново!
+			</div>
+			<div class="button-bottom" onclick="
+
+			if (buttonEnabled.btnConnectedWifi) {
+
+				let n = new XMLHttpRequest;
+				n.timeout = 5e3;
+				n.open('GET', 'http://{ip}/temp', true)
+				n.onload = function(){
+					
+					let camera = {}
+					camera.ip = '{ip}'
+					camera.wifi = '{wifi_name_full}'
+					let dt = JSON.parse(app.fs.cams)
+					dt.push(camera)
+					app.fs.cams = JSON.stringify(dt)
+
+					app.screens.home.click()
+
+					refresh_home()
+
+					buttonEnabled.btnConnectedWifi = true
+					dqs('.mini-screen-4 .button-bottom').classList = 'button-bottom'
+
+				}
+				n.onerror = function() {
+					buttonEnabled.btnConnectedWifi = true
+					dqs('.mini-screen-4 .button-bottom').classList = 'button-bottom'
+				}
+				n.send()
+
+				buttonEnabled.btnConnectedWifi = false
+
+				dqs('.mini-screen-4 .button-bottom').classList = 'button-bottom disabled'
+
+			}
+
+			
+
+			">Подключен <span class="apple-symbol">􀄫</span></div>
+
+		</div>
+
+
+	</div>
+
+	
+
+	<script type="text/javascript" src="elements/scripts/preload.js"></script>
+	<script type="text/javascript" src="elements/scripts/dqs.js"></script>
+
+</body>
+</html>

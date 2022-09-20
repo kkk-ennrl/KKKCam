@@ -1,0 +1,360 @@
+@font-face {
+	font-family: "aapl";
+	src: url(../fonts/SF-Compact-Rounded-Regular.otf);
+}
+html, body {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+
+/* Экраны и настройка цветов  */
+body {
+
+	--screen-default-background: url(../images/house.jpg);
+	--screen-preload-background: rgba(28, 28, 30, 1);
+	--bar-size: 20px;
+	--accent: #96c8ff;
+	--accent-darked: #5096c8;
+	--nav-size: 12px;
+
+}
+.screen {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100vw;
+	height: 100vh;
+}
+
+.app-home {
+	display: block;
+	background: var(--screen-default-background);
+}
+.app-home:before {
+	content: "";
+	top: 0px;
+	position: absolute	;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	backdrop-filter: blur(20px) brightness(0.5);
+}
+.app-home .title {
+	position: absolute;
+	top: var(--bar-size);
+	left: 20px;
+	font-family: "aapl";
+	font-weight: 900;
+	letter-spacing: 1px;
+	font-size:  25px;
+	color: white;
+}
+.app-home *[app-type='standalone'] .not-devices {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	left: 20px;
+	color: white;
+	right: 20px;
+	text-align: center;
+	width: calc(100% - 40px);
+}
+.app-home *[app-type='standalone'] .not-devices * {
+	display: block;
+}
+.app-home *[app-type='standalone'] .not-devices img {
+	display: inline-block;
+}
+
+.app-home *[app-type='standalone'] .not-devices .nd-title {
+	font-size: 28px;
+	text-align: center;
+	width: 100%;
+	position: relative;
+	font-family: "aapl";
+}
+.app-home *[app-type='standalone'] .not-devices .nd-add {
+	font-size: 34px;
+	margin-top: 10px;
+	font-family: "aapl";
+	color: white !important;
+}
+.app-home *[app-type='standalone'] .not-devices .nd-message {
+	font-size: 20px;
+	margin-top: 10px;
+	font-family: "aapl";
+}
+.app-home.screen *[app-type='standalone'] .add-device {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	right: 20px;
+	top: var(--bar-size);
+	font-size: 30px;
+	font-family: aapl;
+	font-weight: 900;
+	color: white;
+}
+
+/* Screen Popup and Settings */
+.screen-popup {
+	position: absolute;
+	width: 100vw;
+	height: calc(100vh - 100px);
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
+	left: 0px;
+	bottom: 0px;
+	color: white !important;
+	background: rgba(10, 10, 12, 1);
+	box-shadow: 0 0 30px rgba(255, 255, 255, 0.25);
+}
+@media screen and (min-height: 700px) {
+	.screen-popup {
+		height: 500px;
+	}
+}
+.app-add-device {
+	display: none;
+}	
+.app-add-device .mini-screen-2 {
+	display: none;
+}
+.app-add-device .mini-screen-3 {
+	display: none;
+}
+.app-add-device .mini-screen-4 {
+	display: none;
+}
+.app-info {
+	display:  none;
+}
+.screen-popup .title {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	font-family: "aapl";
+	font-weight: 900;
+	letter-spacing: 0.5px;
+	font-size: 25px;
+	line-height: 30px;
+	color: white;
+}
+.screen-popup .message {
+	position: absolute;
+	top: 60px;
+	left: 20px;
+	right: 20px;
+	font-family: aapl;
+	font-weight: 500;
+	letter-spacing: 0.3px;
+	font-size: 18px;
+	color: white;
+}
+a {
+	color: var(--accent);
+}
+
+* {
+	user-select: none;
+}
+.app-info .close {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	color: white;
+	font-weight: 900;
+	font-size: 25px;
+	line-height: 30px;
+	width: 40px;
+	font-family: aapl;
+	text-align: center;
+}
+.camera_view .close {
+	position: absolute;
+	right: 20px;
+	top: var(--bar-size);
+	color: white;
+	font-weight: 900;
+	font-size: 30px;
+	line-height: 40px;
+	width: 40px;
+	text-align: center;
+	font-family: aapl;
+}
+.camera_view {
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	width: 100vw;
+	height: 100vh;
+	background: black;
+	display: none;
+}
+
+.button-bottom {
+	position: absolute;
+	border-radius: 10px;
+	bottom: calc(15px + var(--nav-size));
+	left: 20px;
+	right: 20px;
+	background-color: var(--accent);
+	text-align: center;
+	padding-bottom: 15px;
+	padding-top: 15px;
+	color: rgb(28, 28, 28);
+	font-family: aapl;
+	font-weight: 700;
+	font-size: 18px;
+	letter-spacing: 0.6px;
+
+}
+.button-bottom.disabled {
+	filter: brightness(0.4);
+}
+
+.button-bottom:active {
+	background-color: var(--accent-darked);
+}
+
+.app-add-device .mini-screen-2 .wifi-networks {
+	position: absolute;
+	top: 100px;
+	left: 20px;
+	bottom: calc(15px + var(--nav-size));
+	right: 20px;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 10px;
+}
+.app-add-device .mini-screen-2 .wifi-networks .network {
+	width: calc(100% - 20px - 55px);
+	margin-left: 10px;
+	margin-right: 10px;
+	user-select: none;
+	background: rgba(0, 0, 0, 0.05);
+	margin-top: 10px;
+	padding: 5px;
+	border-radius: 9px;
+	padding-left: 50px;
+	height: 40px;
+}
+.app-add-device .mini-screen-2 .wifi-networks .network .icon {
+	width: 40px;
+	height: 40px;
+	background: rgba(255, 255, 255, 0.05);
+	display: inline-block;
+	position: absolute;
+	border-radius: 	8px;
+	transform: translateX(-45px);
+	font-family: aapl;
+  	text-align: center;
+  	font-size: 26px;
+  	line-height: 40px;
+}
+.app-add-device .mini-screen-2 .wifi-networks .network * {
+	display: inline-block;
+	line-height: 40px;
+}
+.app-add-device .mini-screen-2 .wifi-networks .network .connect {
+	position: absolute;
+  	right: 15px;
+ 	background: var(--accent);
+  	width: 40px;
+  	color: rgb(28, 28, 28);
+  	height: 40px;
+  	font-family: aapl;
+  	line-height: 40px;
+  	font-weight: 900;
+  	text-align: center;
+  	border-radius: 101px;
+}
+.app-add-device .mini-screen-2 .wifi-networks .network .name {
+	font-family: "aapl";
+	font-weight: 600;
+	letter-spacing: 1px;
+}
+.app-add-device .mini-screen-2 .apple-symbol {
+	transform: translateY(2px);
+}
+
+.app-add-device .mini-screen-3 .password-in {
+	position: absolute;
+	top: 100px;
+	left: 20px;
+	width: calc(100% - 20px - 20px - 20px);
+	height: 40px;
+	line-height: 40px;
+	font-size: 18px;
+	font-family: aapl;
+	padding: 5px;
+	letter-spacing: 0.5px;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 10px;
+	border: 0px;
+	color: white;
+	outline: none;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.app-home *[app-type='standalone'] .devices {
+	position: absolute;
+	top: calc(80px + var(--bar-size) / 2);
+	left: 20px;
+	right: 20px;
+	bottom: calc(20px + var(--nav-size))
+}
+.app-home .devices .device .not-connection-image {
+	position: absolute;
+    font-family: aapl;
+    font-size: 40px;
+    top: 5px;
+    left: 7px;
+    color: var(--accent);
+    line-height: calc((50vw - 20px - 5px) / 4*3);
+    width: calc(100% / 2 - 20px);
+} 
+.app-home .devices .device .not-connection-text {
+	font-family: aapl;
+    font-size: 16px;
+    top: 5px;
+    left: 7px;
+    color: var(--accent);
+    line-height: calc((50vw - 20px - 5px) / 4*3);
+    width: calc(100% / 2 - 20px);
+    position: absolute;
+    transform: translateY(35px);
+}
+.app-home .devices .device .not-connection-text1 {
+	font-family: aapl;
+    font-size: 12px;
+    top: 5px;
+    left: 7px;
+    color: var(--accent);
+    line-height: calc((50vw - 20px - 5px) / 4*3);
+    width: calc(100% / 2 - 20px);
+    position: absolute;
+    transform: translateY(50px);
+}
+.app-home .devices .device {
+	width: calc(50vw - 20px - 5px - 10px - 5px);
+	margin-right: 5px;
+	padding: 5px;
+	display: inline-block;
+	text-align: center;
+	font-family: aapl;
+	font-size: 16px;
+	margin-left: 2px;
+	margin-bottom: 5px;
+	color: white;
+	border-radius: 4px;
+	background: rgba(0, 0, 0, 0.5);
+}
+.app-home .devices .device img {
+	width: calc(100%);
+  height: calc((50vw - 20px - 5px) / 4*3);
+  border-radius: 4px;
+  transform: rotate(180deg) scaleX(-1);
+}
