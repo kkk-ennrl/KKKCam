@@ -5,6 +5,8 @@ app.htmlAdd = `
 
 			<div class="message">Для начала подключитесь к доступной точке доступа Wifi под названием "KKKCam Setup"<br>Далее нажмите на кнопку продолжить и дождитесь ответа камеры</div>
 
+            <div class="camera_animation"></div>
+
 			<div class="button-bottom" onclick="
 
 				let n = new XMLHttpRequest;
@@ -150,7 +152,9 @@ app.htmlAdd = `
 		</div>
 
 `
-
+app.animation_framerate = 25;
+app.animation_thisFrame = 1;
+app.animation_enable = true;
 
 
 window.addEventListener("DOMContentLoaded", function(){
@@ -178,6 +182,57 @@ function app_start() {
 	document.body.style.setProperty("--nav-size", Android.getNavigationBarHeight() / 2+ "px")
 
 	// Запуск приложения
+
+	// Анимация камеры
+
+	setInterval(function(){
+
+        if (app.animation_enable) {
+
+            app.animation_thisFrame += 1
+
+            if (app.animation_thisFrame == 101) {
+
+                app.animation_thisFrame = 1
+
+            }
+
+            let anlength = app.animation_thisFrame.toString().length;
+
+            let filenameAnim = "elements/device_animation/"
+
+            for (var i = 0; i < 4 - anlength; i++) {
+
+                filenameAnim += "0"
+
+            }
+
+            filenameAnim += app.animation_thisFrame.toString();
+
+            filenameAnim += ".png"
+
+            dqs('.screen-popup .mini-screen-1 .camera_animation').style.background = "url(" + filenameAnim + ") no-repeat";
+            dqs(".screen-popup .mini-screen-1 .camera_animation").style.backgroundSize = "100%";
+
+            let sizeCam = dqs(".screen-popup.app-add-device").offsetHeight;
+            sizeCam -= 60
+            sizeCam -= dqs('.screen-popup .mini-screen-1 .title').offsetHeight;
+            sizeCam -= dqs('.screen-popup .mini-screen-1 .message').offsetHeight;
+            sizeCam -= dqs('.screen-popup .mini-screen-1 .button-bottom').offsetHeight
+            sizeCam -= (500 - dqs('.screen-popup .mini-screen-1 .button-bottom').offsetHeight - dqs('.screen-popup .mini-screen-1 .button-bottom').offsetTop)
+
+            sizeCam -= 40
+
+            dqs(".screen-popup .mini-screen-1 .camera_animation").style.height = sizeCam + "px"
+            dqs(".screen-popup .mini-screen-1 .camera_animation").style.width = sizeCam + "px"
+            dqs(".screen-popup .mini-screen-1 .camera_animation").style.top = (60 + dqs('.screen-popup .mini-screen-1 .title').offsetHeight + dqs('.screen-popup .mini-screen-1 .message').offsetHeight + 20) + "px"
+
+
+
+
+        }
+
+	}, 1000/app.animation_framerate)
 
 	refresh_home()
 
@@ -312,6 +367,7 @@ function refresh_home() {
 				}, 398)
 				app.screens.home.onclick = null
 				app.screens.add_device.innerHTML = app.htmlAdd
+				app.animation_thisFrame = 1
 
 			}
 		}, 398)
@@ -334,6 +390,7 @@ function refresh_home() {
 				}, 398)
 				app.screens.home.onclick = null
 				app.screens.add_device.innerHTML = app.htmlAdd
+				app.animation_thisFrame = 1
 
 			}
 		}, 398)

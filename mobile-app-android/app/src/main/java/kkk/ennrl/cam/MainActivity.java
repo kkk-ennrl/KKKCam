@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         webView.addJavascriptInterface(new WebAppInterface(this), "Android");
 
-        //WebView.setWebContentsDebuggingEnabled(true);
+        WebView.setWebContentsDebuggingEnabled(true);
 
         webView.loadUrl("file:///android_asset/index.html");
     }
