@@ -460,4 +460,5 @@ function errorLoading(e) {
 function streamLoaded(e) {
 	let parent = e.parentElement
 	parent.setAttribute("onclick", "open_device(this)")
+
 }
