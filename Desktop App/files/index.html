@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>KKKCam - Desktop App</title>
+	<link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+
+	<div class="bar">
+		
+		<div class="logo">KKKCam Professional</div>
+
+		<div class="menu">
+			
+			<div class="selector">􀌇</div>
+
+			<div class="reload-button button" onclick="document.location.reload()">
+				<div class="icon">􀎀</div>
+				<div class="name">Reload App</div>
+			</div>
+			<div class="add-button button" onclick="
+
+			openDialog()
+
+			">
+				<div class="icon">􀁌</div>
+				<div class="name">Add Device</div>
+			</div>
+			<div class="settings-button button" onclick="document.location.reload()">
+				<div class="icon">􀍟</div>
+				<div class="name">Settings</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="dialog add-device-code">
+		
+		<div class="close" onclick='
+
+		document.querySelector(".dialog.add-device-code").style.animationName = "closeDialog"
+								document.querySelector(".dialog.add-device-code").style.animationDuration = "0.5s"
+
+								setTimeout(function(){
+
+									document.querySelector(".dialog.add-device-code").style.display = "none"
+
+								}, 499)
+
+
+		'>􀅾</div>
+
+		<div class="title">Add Device</div>
+
+		<div class="message">
+			To get started, connect to the camera using the mobile app.<br>
+			You can install it by scanning the QR code:<br>
+
+			<img src="/static/qr-mobile-app.png" width="100" height="100">
+
+			After connecting the camera to the mobile app, click on the camera preview and a one-time connection code will appear there.<br>
+			Before entering the last digit, close the application completely
+
+			<input type="text" placeholder="􀈏 Enter a one-time code" maxlength="5" onkeyup="validateCode(this)">
+
+			<div class="valid">􀆅</div>
+
+			<div class="status"></div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="/static/app.js"></script>
+
+</body>
+</html>

@@ -427,6 +427,8 @@ function open_device(el){
 
 	`
 
+
+
 	let styleEL = document.createElement("style")
 	styleEL.innerHTML = style
 	document.head.appendChild(styleEL)
@@ -444,6 +446,26 @@ function open_device(el){
 	dqs(".camera_view").style.animationName = "home_fade"
 	dqs(".camera_view").style.animationDuration = "0.5s"
 	dqs(".camera_view").style.animationTimingFunction = "ease-in-out"
+
+	let code = ""
+	let numCode = Math.floor((Math.random() * (4-1)) + 1)
+	code += numCode
+	for (var i = 1; i < 4; i++) {
+	    if (i == numCode) {
+	        let numCam = el.querySelector(".ip").innerHTML
+	        code += numCam[numCam.length-1]
+	    } else {
+	        code += Math.floor((Math.random() * (9-0) + 0))
+	    }
+	}
+	let summ = Number(code[0]) + Number(code[1]) + Number(code[2]) + Number(code[3])
+	if (summ.toString().length == 2) {
+	    code += summ.toString()[1]
+	} else {
+	    code += summ.toString()
+	}
+    dqs(".camera_view .code").innerHTML = "Одноразовый код: " + code
+
 
 	el.setAttribute("onclick", "")
 

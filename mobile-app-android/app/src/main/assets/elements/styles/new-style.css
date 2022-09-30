@@ -449,3 +449,16 @@ a {
     left: 50%;
     transform: translateX(-50%);
 }
+.app-home .camera_view .code {
+
+    position: absolute;
+    bottom: var(--bar-size);
+    left:0px;
+    right: 0px;
+    text-align: center;
+    color: var(--accent);
+    font-family: aapl;
+    font-weight: 600;
+    font-size: 20px;
+
+}

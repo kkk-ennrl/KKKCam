@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
-
+        webView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
+        webView.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
 
         class WebAppInterface {
             final Context mContext;
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         webView.addJavascriptInterface(new WebAppInterface(this), "Android");
 
-        WebView.setWebContentsDebuggingEnabled(true);
+        webView.setWebContentsDebuggingEnabled(true);
 
         webView.loadUrl("file:///android_asset/index.html");
     }
