@@ -152,9 +152,10 @@ app.htmlAdd = `
 		</div>
 
 `
-app.animation_framerate = 25;
+app.animation_framerate = 60;
 app.animation_thisFrame = 1;
 app.animation_enable = true;
+app.animation_max = 0
 
 
 window.addEventListener("DOMContentLoaded", function(){
@@ -185,54 +186,51 @@ function app_start() {
 
 	// Анимация камеры
 
-	setInterval(function(){
 
-        if (app.animation_enable) {
+        let data_animation = animationCamera;
 
-            app.animation_thisFrame += 1
+        let animation_max_frame = data_animation.length;
 
-            if (app.animation_thisFrame == 101) {
+        app.animation_max = animation_max_frame;
 
-                app.animation_thisFrame = 1
+        app.animation_json = data_animation;
 
-            }
+        setInterval(function(){
 
-            let anlength = app.animation_thisFrame.toString().length;
+                if (app.animation_enable) {
 
-            let filenameAnim = "elements/device_animation/"
+                    app.animation_thisFrame += 1
 
-            for (var i = 0; i < 4 - anlength; i++) {
+                    if (app.animation_thisFrame > app.animation_max) {
+                        app.animation_thisFrame = 0
+                    }
 
-                filenameAnim += "0"
+                    let filenameAnim = app.animation_json[app.animation_thisFrame]
 
-            }
 
-            filenameAnim += app.animation_thisFrame.toString();
+                    dqs('.screen-popup .mini-screen-1 .camera_animation').style.background = "url(" + filenameAnim + ") no-repeat";
+                    dqs(".screen-popup .mini-screen-1 .camera_animation").style.backgroundSize = "100%";
 
-            filenameAnim += ".png"
+                    let sizeCam = dqs(".screen-popup.app-add-device").offsetHeight;
+                    sizeCam -= 60
+                    sizeCam -= dqs('.screen-popup .mini-screen-1 .title').offsetHeight;
+                    sizeCam -= dqs('.screen-popup .mini-screen-1 .message').offsetHeight;
+                    sizeCam -= dqs('.screen-popup .mini-screen-1 .button-bottom').offsetHeight
+                    sizeCam -= (500 - dqs('.screen-popup .mini-screen-1 .button-bottom').offsetHeight - dqs('.screen-popup .mini-screen-1 .button-bottom').offsetTop)
 
-            dqs('.screen-popup .mini-screen-1 .camera_animation').style.background = "url(" + filenameAnim + ") no-repeat";
-            dqs(".screen-popup .mini-screen-1 .camera_animation").style.backgroundSize = "100%";
+                    sizeCam -= 40
 
-            let sizeCam = dqs(".screen-popup.app-add-device").offsetHeight;
-            sizeCam -= 60
-            sizeCam -= dqs('.screen-popup .mini-screen-1 .title').offsetHeight;
-            sizeCam -= dqs('.screen-popup .mini-screen-1 .message').offsetHeight;
-            sizeCam -= dqs('.screen-popup .mini-screen-1 .button-bottom').offsetHeight
-            sizeCam -= (500 - dqs('.screen-popup .mini-screen-1 .button-bottom').offsetHeight - dqs('.screen-popup .mini-screen-1 .button-bottom').offsetTop)
-
-            sizeCam -= 40
-
-            dqs(".screen-popup .mini-screen-1 .camera_animation").style.height = sizeCam + "px"
-            dqs(".screen-popup .mini-screen-1 .camera_animation").style.width = sizeCam + "px"
-            dqs(".screen-popup .mini-screen-1 .camera_animation").style.top = (60 + dqs('.screen-popup .mini-screen-1 .title').offsetHeight + dqs('.screen-popup .mini-screen-1 .message').offsetHeight + 20) + "px"
+                    dqs(".screen-popup .mini-screen-1 .camera_animation").style.height = sizeCam + "px"
+                    dqs(".screen-popup .mini-screen-1 .camera_animation").style.width = sizeCam + "px"
+                    dqs(".screen-popup .mini-screen-1 .camera_animation").style.top = (60 + dqs('.screen-popup .mini-screen-1 .title').offsetHeight + dqs('.screen-popup .mini-screen-1 .message').offsetHeight + 20) + "px"
 
 
 
 
-        }
+                }
 
-	}, 1000/app.animation_framerate)
+        	}, 1000/app.animation_framerate)
+
 
 	refresh_home()
 
