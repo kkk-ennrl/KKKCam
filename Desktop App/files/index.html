@@ -16,19 +16,19 @@
 			
 			<div class="selector">􀌇</div>
 
-			<div class="reload-button button" onclick="document.location.reload()">
+			<div class="reload-button button" onclick="document.location.reload(); playOnClick();">
 				<div class="icon">􀎀</div>
 				<div class="name">Reload App</div>
 			</div>
 			<div class="add-button button" onclick="
 
-			openDialog()
+			openDialog(); playOnClick();
 
 			">
 				<div class="icon">􀁌</div>
 				<div class="name">Add Device</div>
 			</div>
-			<div class="settings-button button" onclick="document.location.reload()">
+			<div class="settings-button button" onclick="document.location.reload(); playOnClick();">
 				<div class="icon">􀍟</div>
 				<div class="name">Settings</div>
 			</div>
@@ -40,7 +40,7 @@
 	<div class="dialog add-device-code">
 		
 		<div class="close" onclick='
-
+		playOnClick();
 		document.querySelector(".dialog.add-device-code").style.animationName = "closeDialog"
 								document.querySelector(".dialog.add-device-code").style.animationDuration = "0.5s"
 
@@ -74,6 +74,15 @@
 	</div>
 
 	<script type="text/javascript" src="/static/app.js"></script>
+
+	<script type="text/javascript">
+		
+		function playOnClick() {
+			var audio = new Audio('/static/hover.wav');
+			audio.play();
+		}
+
+	</script>
 
 </body>
 </html>
